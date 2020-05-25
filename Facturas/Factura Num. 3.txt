@@ -1,0 +1,18 @@
+--------------ADMIN H S.A.S----------------
+Factura de hospedaje Numero: 3
+Fecha: 2020-05-23 22:52:47.115
+-------------------------------------------
+C.C. empleado: 123
+C.C. cliente: 2
+Habitación: 103
+Fecha de ingreso: 2020-05-23 14:00:00.0
+Fecha de salida: 2020-05-24 12:00:00.0
+
+-------------------------------------------
+Servicios consumidos:
+1. Habitacion SIMPLE 1 días    
+Valor por día: 150000$    
+Valor de estadía: 150000$
+-------------------------------------------
+Total a pagar: 150000$
+Medio de pago: Credio
