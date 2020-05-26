@@ -32,14 +32,14 @@ public class CheckoutDAO {
        try{
             con = Fachada.getConnection();
             String sql = "INSERT INTO checkout (id_checkout,id_hospedaje,"
-                    + "valortotal,medio_pago,fecha)"
-                    + "VALUES (?,?,?,?,?)";
+                    + "valortotal,medio_pago)"
+                    + "VALUES (?,?,?,?)";
             pstm = con.prepareStatement(sql);
             pstm.setInt(1, c.getIdCheckout());
             pstm.setInt(2, c.getIdHospedaje());
             pstm.setInt(3, c.getValorTotal());
             pstm.setString(4, c.getMediodepago());
-            pstm.setTimestamp(5, c.getFpago());
+            //pstm.setTimestamp(5, c.getFpago());
             
             rtdo = pstm.executeUpdate();  
         }
@@ -106,8 +106,7 @@ public class CheckoutDAO {
 
             sql
                     = "SELECT * FROM cuenta" //cuenta es una vista      
-                    + " WHERE estado = true "
-                    + "AND id_cliente = ?";   
+                    + " WHERE id_cliente = ?";   
             
             pstm = con.prepareStatement(sql);
             pstm.setInt(1, idcliente);

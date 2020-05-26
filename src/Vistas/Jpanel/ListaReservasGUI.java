@@ -5,7 +5,8 @@
  */
 package Vistas.Jpanel;
 
-import Controladores.ControllerReserva;
+import Controladores.ControllerHospedaje;
+import Modelo.Hospedaje;
 import Modelo.Reserva;
 import Vistas.Jframe.Reservas;
 import java.util.ArrayList;
@@ -24,14 +25,14 @@ public class ListaReservasGUI extends javax.swing.JPanel {
     public ListaReservasGUI(Reservas frame_reservas) {
         this.frame_reservas = frame_reservas;
         initComponents(); 
-        ArrayList<Reserva> listaReservas;
-        listaReservas = ControllerReserva.listarReservas();
+        ArrayList<Hospedaje> listaReservas;
+        listaReservas = ControllerHospedaje.listarReservas();
         cargarListaReservas(listaReservas);   
     }
     
     
     
-    public void establecerLayout(ArrayList<Reserva> listaReservas){
+    public void establecerLayout(ArrayList<Hospedaje> listaReservas){
         //Establece un gridlayout al panel que contiene las reservas,
         //deacuerdo al numero de reservas que exista
         jPcontenido.removeAll();
@@ -47,16 +48,16 @@ public class ListaReservasGUI extends javax.swing.JPanel {
     
     
     
-    public void cargarListaReservas(ArrayList<Reserva> listaReservas){
+    public void cargarListaReservas(ArrayList<Hospedaje> listaReservas){
         establecerLayout(listaReservas);
         
         for (int i = 0; i < listaReservas.size(); i++) {
-            int num_res = listaReservas.get(i).getNumero_reserva();
-            int id_cli = listaReservas.get(i).getNumCliente();
-            int id_hab = listaReservas.get(i).getNum_Habitacion();
-            int cant_per = listaReservas.get(i).getNum_Personas();
-            String fech_in = listaReservas.get(i).getFecha_ingreso().toString();
-            String fech_out = listaReservas.get(i).getFecha_salida().toString();
+            int num_res = listaReservas.get(i).getIdHospedaje();
+            int id_cli = listaReservas.get(i).getIdCliente();
+            int id_hab = listaReservas.get(i).getIdHabitacion();
+            int cant_per = listaReservas.get(i).getNumeroPesonas();
+            String fech_in = listaReservas.get(i).getFechaIngreso().toString();
+            String fech_out = listaReservas.get(i).getFechaSalida().toString();
             jPreservasHospedaje jp = new jPreservasHospedaje
                         (num_res,id_cli,id_hab,cant_per,fech_in,fech_out);
             jp.setFrame_reservas(frame_reservas);
@@ -126,13 +127,13 @@ public class ListaReservasGUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
-        ArrayList<Reserva> listaReservas;
+        ArrayList<Hospedaje> listaReservas;
         if(jTextField1.getText().equals("")){
-            listaReservas = ControllerReserva.listarReservas();
+            listaReservas = ControllerHospedaje.listarReservas();
             cargarListaReservas(listaReservas);
         }else{
             int numReserva = Integer.parseInt(jTextField1.getText());
-            listaReservas = ControllerReserva.listarReservasLike(numReserva);
+            listaReservas = ControllerHospedaje.listarReservasLike(numReserva);
             cargarListaReservas(listaReservas);
         } 
     }//GEN-LAST:event_jTextField1KeyReleased

@@ -7,12 +7,11 @@ package Vistas.Jpanel;
 
 import java.awt.event.KeyEvent;
 import Modelo.Reserva;
-import Controladores.ControladorHospedaje;
+import Controladores.ControllerHospedaje;
 import Modelo.Hospedaje;
 import Controladores.ControladorCheckout;
 import Controladores.ControllerHabitacion;
 import Modelo.Checkout;
-import Controladores.ControllerReserva;
 import javax.swing.JOptionPane;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -44,9 +43,9 @@ public class CheckInReservaPreviaGUI extends javax.swing.JPanel {
     
     private void agregarDatosReserva(){
      
-      ControllerReserva rc = new ControllerReserva();
+      
       String id = jTbuscador.getText().trim();
-      Reserva r = new Reserva();
+      Hospedaje hospedaje = new Hospedaje();
       int idcliente;
       if(id.equalsIgnoreCase("")||
              id.equalsIgnoreCase("Buscar reserva por ID de cliente")){
@@ -61,16 +60,16 @@ public class CheckInReservaPreviaGUI extends javax.swing.JPanel {
        }
         else{
           idcliente = Integer.parseInt(id);
-          r = rc.getReserva(idcliente);
-          if(r.getNumero_reserva()!=0){
-              jLnumeroReserva.setText(r.getNumero_reserva()+"");
-              jLidHabitacion.setText(r.getNum_Habitacion()+"");
-              jLidCliente.setText(r.getNumCliente()+"");
-              jLidEmpleado.setText(r.getNum_Empleado()+"");
-              jLnumeroPersonas.setText(r.getNum_Personas()+"");
-              jLfechaReserva.setText(r.getFecha_reserva()+"");
-              jLfechaIngreso.setText(r.getFecha_ingreso()+"");
-              jLfechaSalida.setText(r.getFecha_salida()+"");
+          hospedaje = ControllerHospedaje.getReserva(idcliente);
+          if(hospedaje.getIdHospedaje()!=0){
+              jLnumeroReserva.setText(hospedaje.getIdHospedaje()+"");
+              jLidHabitacion.setText(hospedaje.getIdHabitacion()+"");
+              jLidCliente.setText(hospedaje.getIdCliente()+"");
+              jLidEmpleado.setText(hospedaje.getIdEmpleado()+"");
+              jLnumeroPersonas.setText(hospedaje.getNumeroPesonas()+"");
+              jLfechaReserva.setText(hospedaje.getfAcutalizacion()+"");
+              jLfechaIngreso.setText(hospedaje.getFechaIngreso()+"");
+              jLfechaSalida.setText(hospedaje.getFechaSalida()+"");
            }else {
               JOptionPane.showMessageDialog(null,
                  "No se encontro ninguna reserva con este ID,"
@@ -80,22 +79,15 @@ public class CheckInReservaPreviaGUI extends javax.swing.JPanel {
       }     
    }
     
-   private void hacerHospedaje(){
-       Hospedaje h = new Hospedaje();
-       ControladorHospedaje ch = new ControladorHospedaje();
-            
-       h.setIdHabitacion(Integer.parseInt(jLidHabitacion.getText()));
-       h.setIdCliente(Integer.parseInt(jLidCliente.getText()));
-       h.setNumeroPesonas(Integer.parseInt(jLnumeroPersonas.getText()));
-       h.setFechaIngreso(Timestamp.valueOf (jLfechaIngreso.getText()));
-       h.setFechaSalida(Timestamp.valueOf (jLfechaSalida.getText()));
-       h.setEstado(true);
-       h.setIdEmpleado(numEmpleado);
-       h.setId_reserva(Integer.parseInt(jLnumeroReserva.getText()));
+   private void hacerHospedaje(String estado){
        
-       int i = ch.grabarHospedaje(h);
-       crearCheckout(ch.extraerId());//---------------
+       
+       int numReserva = Integer.parseInt(jLnumeroReserva.getText());
+       
+       int i = ControllerHospedaje.cambiarEstado(numReserva,estado);
+       //---------------
       if(i==1){
+          crearCheckout(numReserva);
           JOptionPane.showMessageDialog(null,
                  "Hospedaje registrado con exito."); 
             vaciarCampos();
@@ -125,10 +117,14 @@ public class CheckInReservaPreviaGUI extends javax.swing.JPanel {
       
       int valorTotal = numDias()*
              ch.getPrecioHabitacion(Integer.parseInt(jLidHabitacion.getText()));
+      c.setIdCheckout(idhospedaje);
       c.setIdHospedaje(idhospedaje);
       c.setValorTotal(valorTotal);
+      //c.setFpago(fp);
       co.grabarChekout(c);
   }
+   
+   
    private int numDias(){
        int dias=0;
        try {
@@ -325,7 +321,7 @@ public class CheckInReservaPreviaGUI extends javax.swing.JPanel {
 
     private void jBcheckInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBcheckInActionPerformed
         if(!jLnumeroReserva.getText().equalsIgnoreCase("  ")){
-           hacerHospedaje();
+           hacerHospedaje("ACTIVO");
         }else{   
           JOptionPane.showMessageDialog(null,
                   "Debe buscar una reserva primero.");

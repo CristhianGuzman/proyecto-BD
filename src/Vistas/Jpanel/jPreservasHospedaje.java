@@ -5,13 +5,11 @@
  */
 package Vistas.Jpanel;
 
-import Controladores.ControllerReserva;
+import Controladores.ControllerHospedaje;
+
 import Modelo.Reserva;
 import Servicios.Fecha;
 import Vistas.Jframe.Reservas;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -174,7 +172,7 @@ public class jPreservasHospedaje extends javax.swing.JPanel {
         int result = JOptionPane.showConfirmDialog
                     (this, "Desea continuar?", "Eliminar", dialog);
         if (result == 0) {
-            ControllerReserva.eliminarReserva(numero);
+            ControllerHospedaje.eliminarReserva(numero);
             frame_reservas.panelListarReserva();
         }    
     }//GEN-LAST:event_jBeliminarMouseClicked

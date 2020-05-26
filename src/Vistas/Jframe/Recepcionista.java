@@ -6,7 +6,7 @@
 package Vistas.Jframe;
 
 import Controladores.*;
-import Modelo.ReservaDAO;
+
 import java.awt.Toolkit;
 
 
@@ -193,7 +193,7 @@ public class Recepcionista extends javax.swing.JFrame {
         jPcontenedor.revalidate();
         jPcontenedor.repaint();
         jPcontenedor.setVisible(true);
-        ControllerReserva.setNumEmpleado(numEmpleado);
+        ControllerHospedaje.setNumEmpleado(numEmpleado);
         
     }//GEN-LAST:event_jBreservarActionPerformed
 

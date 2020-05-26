@@ -5,7 +5,7 @@
  */
 package Vistas.Jpanel;
 
-import Controladores.ControladorHospedaje;
+import Controladores.ControllerHospedaje;
 import Modelo.Hospedaje;
 import Modelo.Reserva;
 import java.awt.event.KeyEvent;
@@ -26,7 +26,7 @@ public class ListaHospedajesGUI extends javax.swing.JPanel {
     private int nElementos;
     public ListaHospedajesGUI() {
         initComponents();
-        ControladorHospedaje ch = new ControladorHospedaje();
+        ControllerHospedaje ch = new ControllerHospedaje();
         h = ch.listadoHospedaje(1);
         first = false;
         AgregarLista();

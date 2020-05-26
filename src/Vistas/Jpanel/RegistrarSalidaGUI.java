@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import Controladores.ControladorCheckout;
-import Controladores.ControladorHospedaje;
+import Controladores.ControllerHospedaje;
 import Controladores.ControladorServiciosAdicionado;
 import Controladores.ControllerHabitacion;
 import Modelo.Checkout;
@@ -73,7 +73,7 @@ public class RegistrarSalidaGUI extends javax.swing.JPanel {
               jLfechaIngreso.setText(co.getfechaIngreso()+"");
               jLfechaSalida.setText(co.getfechaSalida()+"");
               calcularValorTotal(co.getValorTotal());
-              jLprecio.setText(valorTotal+"$");
+              jLprecio.setText("$"+valorTotal);
               found = true;
            }else {
               JOptionPane.showMessageDialog(null,
@@ -91,8 +91,8 @@ public class RegistrarSalidaGUI extends javax.swing.JPanel {
           DefaultListModel modelo = new DefaultListModel();
           servicios.add(1+". "+"Habitacion " + co.getTipoH()
                  +" "+ n +" días");
-          servicios.add( "    \nValor por día: " + p + "$");
-          servicios.add( "    \nValor de estadía: " + n*p+ "$");
+          servicios.add( "    \nValor por día: $"+p);
+          servicios.add( "    \nValor de estadía: $"+n*p);
           adicionarServicios();
          for(int i = 0; i<servicios.size(); i++){
             modelo.addElement(servicios.get(i));
@@ -184,7 +184,7 @@ public class RegistrarSalidaGUI extends javax.swing.JPanel {
         c.setValorTotal(valorTotal);
         ControladorCheckout.registrarSalida(c);
         c.setmediodepago(jCBmedioPago.getSelectedItem()+"");
-        ControladorHospedaje.cambiarEstado(idcheckout);
+        ControllerHospedaje.cambiarEstado(idcheckout,"INACTIVO");
         ControllerHabitacion.cambiarEstadoHabitacion(habitacion);
     }
     /**

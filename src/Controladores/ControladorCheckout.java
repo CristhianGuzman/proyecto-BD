@@ -28,7 +28,7 @@ public class ControladorCheckout {
     public static int grabarChekout(Checkout c)
     {
         CheckoutDAO hd = new CheckoutDAO();
-        c.setIdCheckout(extraerId()+1);
+        //c.setIdCheckout(extraerId()+1);
         int resultado = hd.grabarCheckout(c);
         return resultado; 
     }

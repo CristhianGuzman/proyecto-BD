@@ -1,18 +1,24 @@
 --------------ADMIN H S.A.S----------------
 Factura de hospedaje Numero: 2
-Fecha: 2020-05-22 20:31:14.449
+Fecha: 2020-05-26 02:08:46.195
 -------------------------------------------
 C.C. empleado: 123
-C.C. cliente: 1
-Habitación: 104
-Fecha de ingreso: 2020-05-22 14:00:00.0
-Fecha de salida: 2020-05-23 12:00:00.0
+C.C. cliente: 5
+Habitación: 103
+Fecha de ingreso: 2020-05-26 14:00:00.0
+Fecha de salida: 2020-05-27 12:00:00.0
 
 -------------------------------------------
 Servicios consumidos:
 1. Habitacion SIMPLE 1 días    
-Valor por día: 150000$    
-Valor de estadía: 150000$
+Valor por día: $150000    
+Valor de estadía: $150000
+2. Jack Daniels x3    
+Valor por unidad: 150000$    
+Valor total: 450000$
+3. Agua de UWU 250ml x2    
+Valor por unidad: 1500$    
+Valor total: 3000$
 -------------------------------------------
-Total a pagar: 150000$
+Total a pagar: $603000
 Medio de pago: Credio

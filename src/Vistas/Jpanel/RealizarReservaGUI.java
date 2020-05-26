@@ -5,8 +5,9 @@
  */
 package Vistas.Jpanel;
 
-import Controladores.ControllerReserva;
+import Controladores.ControllerHospedaje;
 import Modelo.Habitacion;
+import Modelo.Hospedaje;
 import Modelo.Reserva;
 import Servicios.Fecha;
 import Vistas.Jframe.Reservas;
@@ -37,7 +38,7 @@ public class RealizarReservaGUI extends javax.swing.JPanel {
         initComponents();
         this.frame_reservas = frame_reservas;
         validaOperacion = "guardar";
-        numeroReserva = ControllerReserva.extraerId() + 1;
+        numeroReserva = ControllerHospedaje.extraerId() + 1;
         
     }
     
@@ -56,11 +57,11 @@ public class RealizarReservaGUI extends javax.swing.JPanel {
         Timestamp fi = Fecha.formatearFechaIngreso(jdFechaIngreso.getDate());
         Timestamp fs = Fecha.formatearFechaSalida(jdFechaSalida.getDate()); 
         if(validaOperacion.equals("guardar")){
-            cargarHabitaciones(ControllerReserva.
+            cargarHabitaciones(ControllerHospedaje.
                         loadListRooms(fi,fs,"save",0));  
         }else
         if(validaOperacion.equals("actualizar")){
-            cargarHabitaciones(ControllerReserva.
+            cargarHabitaciones(ControllerHospedaje.
                     loadListRooms(fi,fs,"update",numeroReserva));
             
         }
@@ -74,25 +75,26 @@ public class RealizarReservaGUI extends javax.swing.JPanel {
         jdFechaSalida.setDate(Fecha.dateTomorrow(Fecha.crearFechaTimestamp())); 
     }
     
-    //Retorna la informacion de la reserva ingresada en los campos de la 
+    //Retorna la informacion de la hospedaje ingresada en los campos de la 
     //interfaz
-    private Reserva infoRerserva() {
-        Reserva reserva = new Reserva();
+    private Hospedaje infoRerserva() {
+        Hospedaje hospedaje = new Hospedaje();
         int idHab = Integer.parseInt(jTidHabitacion.getText());
         int idCli = Integer.parseInt(jTidCliente.getText());
         int numPer = Integer.parseInt(jTnumPersonas.getText());
         Timestamp fi = Fecha.formatearFechaIngreso(jdFechaIngreso.getDate());
         Timestamp fs = Fecha.formatearFechaSalida(jdFechaSalida.getDate());
         Timestamp fecha = Fecha.crearFechaTimestamp();
-        reserva.setNumero_reserva(numeroReserva);
-        reserva.setNum_Habitacion(idHab);
-        reserva.setNumCliente(idCli);
-        reserva.setNum_Empleado(ControllerReserva.getNumEmpleado());
-        reserva.setFecha_reserva(fecha);
-        reserva.setFecha_ingreso(fi);
-        reserva.setFecha_salida(fs);
-        reserva.setNum_Personas(numPer);
-        return reserva;   
+        hospedaje.setIdHospedaje(numeroReserva);
+        hospedaje.setIdHabitacion(idHab);
+        hospedaje.setIdCliente(idCli);
+        hospedaje.setIdEmpleado(ControllerHospedaje.getNumEmpleado());
+        hospedaje.setfAcutalizacion(fecha);
+        hospedaje.setFechaIngreso(fi);
+        hospedaje.setFechaSalida(fs);
+        hospedaje.setNumeroPesonas(numPer);
+        hospedaje.setEstado("RESERVA");
+        return hospedaje;   
     }
     
     
@@ -231,17 +233,19 @@ public class RealizarReservaGUI extends javax.swing.JPanel {
     public void saveORupdate(){
         if(validarCampos()==1){
             if(validaOperacion.equals("guardar")){
-                if(ControllerReserva.registrarReserva(infoRerserva()) == 1){
+                if(ControllerHospedaje.registrarReserva(infoRerserva()) == 1){
                     setearCampos();
                     reestablecerBorderPanel();
                     numeroReserva += 1;
+                    JOptionPane.showMessageDialog(null,"Registro grabado con "
+                        + "exito");
                 }else{
                     JOptionPane.showMessageDialog(null,"No existe el cliente "
                         + "en la base de datos");
                 }  
             }else 
             if(validaOperacion.equals("actualizar")){
-                if(ControllerReserva.actualizarReserva(infoRerserva()) == 1){
+                if(ControllerHospedaje.actualizarReserva(infoRerserva()) == 1){
                     frame_reservas.panelListarReserva();
                     //validaOperacion = "guardar";
                 }

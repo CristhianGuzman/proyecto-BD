@@ -12,10 +12,10 @@ import java.util.Date;
  * @author crist
  */
 public class Hospedaje {
-    private int id_hospedaje, id_habitacion, id_cliente, id_empleado,id_reserva;
-    private Timestamp fIngreso, fSalida;
+    private int id_hospedaje, id_habitacion, id_cliente, id_empleado;
+    private Timestamp fIngreso, fSalida,fAcutalizacion;
     private int numPersonas;
-    private boolean estado;
+    private String estado;
     //---------Hospedaje con datos de Habitacion
     private int piso;
     
@@ -29,12 +29,11 @@ public class Hospedaje {
      this.fIngreso = new Timestamp(fecha.getTime());
      this.fSalida = new Timestamp(fecha.getTime());
      this.numPersonas= 0;
-     this.estado = true;
+     this.estado = "";
      this.piso = 0;
-     this.id_reserva = 0;
     }
     public Hospedaje(int iho, int iha, int icl, int iem, 
-            Timestamp fin, Timestamp fsa, int nump, boolean es, int idr ) {
+            Timestamp fin, Timestamp fsa, int nump, String es) {
      Date fecha = new Date();
      this.id_hospedaje  = iho;
      this.id_habitacion  = iha;
@@ -44,7 +43,7 @@ public class Hospedaje {
      this.fSalida = fsa;
      this.numPersonas= nump;
      this.estado = es;
-     this.id_reserva = idr;
+     
     }
     public Hospedaje(int iho, int iha, int icl,  int p ) {
      Date fecha = new Date();
@@ -85,13 +84,17 @@ public class Hospedaje {
         this.numPersonas = nump;
     }
     
-    public void setEstado (boolean estado)
+    public void setEstado (String estado)
     {
         this.estado = estado;
     }
-    public void setId_reserva(int idr){
-        this.id_reserva = idr;
+
+    public void setfAcutalizacion(Timestamp fAcutalizacion) {
+        this.fAcutalizacion = fAcutalizacion;
     }
+    
+    
+   
     //-----------------------------GET Hospedaje--------------------------------
     public int getIdHospedaje ()
     {
@@ -123,14 +126,19 @@ public class Hospedaje {
         return this.numPersonas;
     }
     
-    public boolean getEstado ()
+    public String getEstado ()
     {
         return this.estado;
     }
-    public int getId_reserva(){
-        return this.id_reserva;
-    }
+   
     public int getPiso(){
         return this.piso;
     }
+
+    public Timestamp getfAcutalizacion() {
+        return fAcutalizacion;
+    }
+    
+    
+    
 }

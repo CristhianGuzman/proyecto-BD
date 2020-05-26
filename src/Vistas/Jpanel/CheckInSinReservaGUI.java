@@ -6,9 +6,8 @@
 package Vistas.Jpanel;
 
 import Controladores.ControladorCheckout;
-import Controladores.ControladorHospedaje;
+import Controladores.ControllerHospedaje;
 import Controladores.ControllerHabitacion;
-import Controladores.ControllerReserva;
 import Modelo.Checkout;
 import Modelo.Habitacion;
 import Modelo.Hospedaje;
@@ -31,15 +30,16 @@ public class CheckInSinReservaGUI extends javax.swing.JPanel {
      * Creates new form CheckInSinReserva
      */
     String validaOperacion;
-    int numEmpleado;
+    int numEmpleado,numHospedaje;
 
     public CheckInSinReservaGUI(int nummEmpleado) {
         initComponents();
         this.numEmpleado = nummEmpleado;
+        numHospedaje = ControllerHospedaje.extraerId() + 1;
         establecerInterfaz();
         Timestamp fi = Fecha.formatearFechaIngreso(jdFechaIngreso.getDate());
         Timestamp fs = Fecha.formatearFechaSalida(jdFechaSalida.getDate());
-        cargarHabitaciones(ControllerReserva.
+        cargarHabitaciones(ControllerHospedaje.
                 loadListRooms(fi, fs, "save", 0));
     }
 
@@ -98,24 +98,28 @@ public class CheckInSinReservaGUI extends javax.swing.JPanel {
 
     private void hacerHospedaje() {
         Hospedaje h = new Hospedaje();
-        ControladorHospedaje ch = new ControladorHospedaje();
+        ControllerHospedaje ch = new ControllerHospedaje();
         
         Timestamp fechaIngreso,fechaSalida;
         fechaIngreso = Fecha.formatearFechaIngreso(jdFechaIngreso.getDate());
         fechaSalida = Fecha.formatearFechaSalida(jdFechaSalida.getDate());
         
-        h.setIdCliente(ch.extraerId() + 1);
+        h.setIdHospedaje(numHospedaje);
         h.setIdHabitacion(Integer.parseInt(jTidHabitacion.getText()));
         h.setIdCliente(Integer.parseInt(jTidCliente.getText()));
+        h.setIdEmpleado(numEmpleado);
         h.setNumeroPesonas(Integer.parseInt(jTcantidadPersonas.getText()));
+        h.setfAcutalizacion(Fecha.crearFechaTimestamp());
         h.setFechaIngreso(fechaIngreso);
         h.setFechaSalida(fechaSalida);
-        h.setEstado(true);
-        h.setIdEmpleado(numEmpleado);
-        h.setId_reserva(0);
+        
+        h.setEstado("ACTIVO");
+        
+        
+        
 
-        int i = ch.grabarHospedaje(h);
-        crearCheckout(ch.extraerId());//---------------
+        int i = ch.registrarReserva(h);
+        crearCheckout(numHospedaje);//---------------
         if (i == 1) {
             JOptionPane.showMessageDialog(null,
                     "Hospedaje registrado con exito.");
@@ -382,7 +386,7 @@ public class CheckInSinReservaGUI extends javax.swing.JPanel {
 
             Timestamp fi = Fecha.formatearFechaIngreso(jdFechaIngreso.getDate());
             Timestamp fs = Fecha.formatearFechaSalida(jdFechaSalida.getDate());
-            cargarHabitaciones(ControllerReserva.
+            cargarHabitaciones(ControllerHospedaje.
                     loadListRooms(fi, fs, "save", 0));
             jTidHabitacion.setText("");
         }
@@ -392,7 +396,7 @@ public class CheckInSinReservaGUI extends javax.swing.JPanel {
 
         Timestamp fi = Fecha.formatearFechaIngreso(jdFechaIngreso.getDate());
         Timestamp fs = Fecha.formatearFechaSalida(jdFechaSalida.getDate());
-        cargarHabitaciones(ControllerReserva.
+        cargarHabitaciones(ControllerHospedaje.
                 loadListRooms(fi, fs, "save", 0));
         jTidHabitacion.setText("");
 
